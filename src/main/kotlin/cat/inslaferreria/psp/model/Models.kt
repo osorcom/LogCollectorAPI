@@ -1,7 +1,6 @@
 package cat.inslaferreria.psp.model
 
 import kotlinx.serialization.Serializable
-import java.time.Instant
 
 @Serializable
 enum class NivellLog {
