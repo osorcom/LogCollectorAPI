@@ -1,0 +1,127 @@
+openapi: "3.0.2"
+
+info:
+  title: API de Centralització de Logs - Mòdul 0490
+  description: Interfície REST per a la recol·lecció i consulta de registres de sistema.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Servidor local de desenvolupament
+
+paths:
+  /logs:
+    get:
+      summary: Llista els registres del sistema
+      operationId: getLogs
+      parameters:
+        - name: nivell
+          in: query
+          required: false
+          description: Filtra els logs per severitat
+          schema:
+            type: string
+            enum: [INFO, WARNING, ERROR]
+      responses:
+        '200':
+          description: Llista de logs obtinguda correctament
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LogEntry'
+
+    post:
+      summary: Enregistra un nou log al sistema
+      operationId: createLog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Log creat correctament
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogEntry'
+        '400':
+          description: Estructura del log no vàlida
+
+    delete:
+      summary: Neteja/Purga el registre de logs
+      operationId: clearLogs
+      responses:
+        '204':
+          description: Registres eliminats satisfactòriament
+
+  /logs/{id}:
+    get:
+      summary: Obté un registre de log pel seu ID
+      operationId: getLogById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador únic del log
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Log trobat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogEntry'
+        '404':
+          description: El log sol·licitat no existeix
+
+components:
+  schemas:
+    LogEntry:
+      type: object
+      required:
+        - id
+        - timestamp
+        - nivell
+        - servei
+        - missatge
+      properties:
+        id:
+          type: integer
+          example: 501
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-10-21T08:30:00Z"
+        nivell:
+          type: string
+          enum: [INFO, WARNING, ERROR]
+          example: "ERROR"
+        servei:
+          type: string
+          example: "auth-service"
+        missatge:
+          type: string
+          example: "Error d'autenticació: Token caducat"
+
+    LogRequest:
+      type: object
+      required:
+        - nivell
+        - servei
+        - missatge
+      properties:
+        nivell:
+          type: string
+          enum: [INFO, WARNING, ERROR]
+          example: "WARNING"
+        servei:
+          type: string
+          example: "payment-gateway"
+        missatge:
+          type: string
+          example: "Temps de resposta elevat en la passarel·la"
