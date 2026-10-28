@@ -1,0 +1,33 @@
+### 1. GET /logs - Obtenir tots els logs
+GET http://localhost:8080/api/v1/logs
+Accept: application/json
+
+
+### 2. GET /logs?nivell=ERROR - Filtrar logs per nivell de severitat (ERROR)
+GET http://localhost:8080/api/v1/logs?nivell=ERROR
+Accept: application/json
+
+
+
+### 3. POST /logs - Crear un nou log (Cas correcte -> 201 Created)
+POST http://localhost:8080/api/v1/logs
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nivell": "ERROR",
+  "servei": "auth-service",
+  "missatge": "Connexió rebutjada a la base de dades"
+}
+
+
+
+### 4. POST /logs - Crear log amb dades invàlides (Cas d'error -> 400 Bad Request)
+POST http://localhost:8080/api/v1/logs
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nivell": "INVALID_LEVEL",
+  "servei": "auth-service"
+}

@@ -1,0 +1,7 @@
+### 2. GET /logs?nivell=ERROR - Filtrar logs per nivell de severitat (ERROR)
+GET http://localhost:8080/api/v1/logs?nivell=ERROR HTTP/1.1
+Accept: application/json
+Accept-Encoding: deflate, gzip, x-gzip
+User-Agent: IntelliJ HTTP Request/IntelliJ IDEA 2026.2.3
+Content-Length: 0
+

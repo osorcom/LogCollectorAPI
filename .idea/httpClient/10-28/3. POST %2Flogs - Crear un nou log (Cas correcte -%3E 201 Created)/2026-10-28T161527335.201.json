@@ -1,0 +1,7 @@
+{
+  "id": 501,
+  "timestamp": "2026-10-28T15:15:27.301256742Z",
+  "nivell": "ERROR",
+  "servei": "auth-service",
+  "missatge": "Connexió rebutjada a la base de dades"
+}

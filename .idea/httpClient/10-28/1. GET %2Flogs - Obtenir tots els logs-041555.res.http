@@ -1,0 +1,15 @@
+### 1. GET /logs - Obtenir tots els logs
+GET http://localhost:8080/api/v1/logs HTTP/1.1
+content-length: 150
+content-type: application/json; charset=UTF-8
+date: Wed, 28 Oct 2026 15:15:55 GMT
+
+[
+  {
+    "id": 501,
+    "timestamp": "2026-10-28T15:15:27.301256742Z",
+    "nivell": "ERROR",
+    "servei": "auth-service",
+    "missatge": "Connexió rebutjada a la base de dades"
+  }
+]
